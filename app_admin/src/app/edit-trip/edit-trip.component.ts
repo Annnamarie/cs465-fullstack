@@ -51,22 +51,23 @@ export class EditTripComponent implements OnInit {
     })
 
     this.tripDataService.getTrip(tripCode).subscribe({
-      next: (value:any) => {
-        this.trip = value;
-        //Populate our records into the form
-        this.editForm.patchValue(value[0]);
-        if(!value) {
+      next: (value: any) => {
+        console.log(value);
+        this.trip = value; // Assuming the response is the trip object, not an array.
+        // Populate the form with the trip data
+        this.editForm.patchValue(value);
+        if (!value) {
           this.message = 'No Trip Retrieved';
         } else {
-          this.message = 'Trip: ' + tripCode + 'retrieved';
+          this.message = 'Trip: ' + tripCode + ' retrieved';
         }
         console.log(this.message);
       },
       error: (error: any) => {
-        console.log('Error' + error);
+        console.log('Error: ' + error);
       }
     })
-  }
+  }    
   
 
   public onSubmit(): void {
@@ -87,7 +88,7 @@ export class EditTripComponent implements OnInit {
           }
         });
     } else {
-      console.log('Form is invalid');
+      console.log('Form is invalid. Please fix errors before submitting.');
     }
   }
 
